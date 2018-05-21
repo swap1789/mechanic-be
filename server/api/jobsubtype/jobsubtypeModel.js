@@ -13,4 +13,12 @@ var JobSubTypeSchema = new Schema({
     }
 });
 
+JobSubTypeSchema.methods = {
+    toJson: function() {
+        var obj = this.toObject()
+        delete obj.password;
+        return obj;
+    }
+}
+
 module.exports = mongoose.model('jobsubtype', JobSubTypeSchema);
