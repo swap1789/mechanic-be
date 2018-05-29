@@ -3,7 +3,7 @@ var _ = require("lodash");
 var logger = require("../../util/logger");
 
 exports.params = function(req, res, next, id) {
-  req.id = req.body.id;
+  req.id = id;
 };
 
 exports.post = function(req, res, next) {
