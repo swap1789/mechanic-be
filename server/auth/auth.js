@@ -7,14 +7,6 @@ var logger = require('../util/logger');
 
 exports.decodeToken = function() {
   return function(req, res, next) {
-    // make it optional to place token on query string
-    // if it is, place it on the headers where it should be
-    // so checkToken can see it. See follow the 'Bearer 034930493' format
-    // so checkToken can see it and decode it
-    if (req.query && req.query.hasOwnProperty('access_token')) {
-      req.headers.authorization = 'Bearer ' + req.query.access_token;
-    }
-
     // this will call next if token is valid
     // and send error if its not. It will attached
     // the decoded token to req.mechanic
@@ -24,7 +16,7 @@ exports.decodeToken = function() {
 
 exports.getFreshMechanic = function() {
   return function(req, res, next) {
-    Mechanic.findById(req.mechanic._id)
+    Mechanic.findById(req.body.id)
       .then(function(mechanic) {
         if (!mechanic) {
           // if no mechanic is found it was not

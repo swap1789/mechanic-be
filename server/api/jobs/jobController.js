@@ -3,22 +3,7 @@ var _ = require("lodash");
 var logger = require("../../util/logger");
 
 exports.params = function(req, res, next, id) {
-  Job.findById(id)
-    .populate("assignedTo jobtype")
-    .exec()
-    .then(
-      function(job) {
-        if (!job) {
-          next(new Error("No Job with that Id"));
-        } else {
-          req.job = job;
-          next();
-        }
-      },
-      function(err) {
-        next(err);
-      }
-    );
+  req.id = req.body.id;
 };
 
 exports.post = function(req, res, next) {
@@ -40,7 +25,7 @@ exports.post = function(req, res, next) {
  * Get the job details of the mecahnic - job details includes jobtypes and jobsubtypes as well
  */
 exports.get = function(req, res, next) {
-	Job.find({})
+  Job.findById(req.id)
 		.populate('assignedTo', 'username')
 		.populate({
 			path: 'jobType',
