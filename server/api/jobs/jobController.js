@@ -26,7 +26,6 @@ exports.post = function(req, res, next) {
  * Get the job details of the mecahnic - job details includes jobtypes and jobsubtypes as well
  */
 exports.get = function(req, res, next) {
-  console.log('here', req.id);
   Job.find({assignedTo: req.id})
 		.populate('assignedTo', 'username')
 		.populate({

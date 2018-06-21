@@ -5,7 +5,7 @@ var checkMechanic = [auth.decodeToken(), auth.getFreshMechanic()];
 
 router.param('id', controller.params);
 router.route('/:id')
-    .get(controller.get)
+    .get(checkMechanic, controller.get)
     .post(checkMechanic, controller.post);
 
 router.route('/').post(controller.post);
